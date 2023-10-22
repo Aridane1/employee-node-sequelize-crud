@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Informacion de los empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <section style="display: flex; text-align: center">
+    <ion-card *ngFor="let employee of employees" style="width: fit-content">
+      <ion-card-header>
+        <img
+          style="margin: 0 auto"
+          *ngIf="employee.employee_img"
+          src="http://localhost:8080/images/{{employee.employee_img}}"
+          alt="image"
+        />
+        <img
+          style="margin: 0 auto"
+          *ngIf="!employee.employee_img"
+          src="http://localhost:8080/images/default/default-user.svg"
+          alt="image"
+        />
+        <ion-card-title><p>Nombre: {{employee.name}}</p> </ion-card-title>
+        <p>Apellidos: {{employee.last_names}}</p>
+        <p>Email: {{employee.email}}</p>
+        <ion-card-subtitle *ngFor="let employmentInfo of employmentsInfo">
+          <p *ngIf="employee.employee_id === employmentInfo.employee_id">
+            Salario: {{employmentInfo.salary}}
+          </p>
+          <p *ngIf="employee.employee_id === employmentInfo.employee_id">
+            Puesto: {{employmentInfo.booth}}
+          </p>
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngFor="let personalInf of personalInfo">
+          <p *ngIf="employee.employee_id === personalInf.employee_id">
+            Telefono: {{personalInf.phone}}
+          </p>
+          <p *ngIf="employee.employee_id === personalInf.employee_id">
+            Direccion:{{personalInf.direction}}
+          </p>
+        </ion-card-subtitle>
+        <ion-button (click)="removeEmployee(employee.name)"
+          >Eliminar Empleado</ion-button
+        >
+        <ion-button (click)="modifyEmployee(employee.employee_id)"
+          >Modificar</ion-button
+        >
+      </ion-card-header>
+    </ion-card>
+  </section>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addEmployee()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
